@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <main className="px-8">
+    <main>
       <div>
         Hello World!
       </div>
