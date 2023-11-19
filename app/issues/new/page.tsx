@@ -26,19 +26,21 @@ const NewIssuePage = () => {
     resolver: zodResolver(createIssueSchema),
   });
 
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      setIsSubmitting(true);
+      await axios.post("/api/issues", data);
+      router.push("/issues");
+    } catch (error) {
+      setIsSubmitting(false);
+      setError("An unexpected error occured");
+    }
+  });
+
   return (
     <form
       className="max-w-xl space-y-3"
-      onSubmit={handleSubmit(async (data) => {
-        try {
-          setIsSubmitting(true);
-          await axios.post("/api/issues", data);
-          router.push("/issues");
-        } catch (error) {
-          setIsSubmitting(false);
-          setError("An unexpected error occured");
-        }
-      })}
+      onSubmit={onSubmit}
     >
       <TextField.Root>
         <TextField.Input placeholder="Title" {...register("name")} />
