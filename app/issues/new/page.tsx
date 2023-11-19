@@ -8,11 +8,15 @@ import { useRouter } from "next/navigation";
 import { createIssueSchema } from "@/app/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import Spinner from "@/app/components/Spinner";
+import { useState } from "react";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuePage = () => {
   const router = useRouter();
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const {
     register,
     control,
@@ -26,8 +30,14 @@ const NewIssuePage = () => {
     <form
       className="max-w-xl space-y-3"
       onSubmit={handleSubmit(async (data) => {
-        await axios.post("/api/issues", data);
-        router.push("/issues");
+        try {
+          setIsSubmitting(true);
+          await axios.post("/api/issues", data);
+          router.push("/issues");
+        } catch (error) {
+          setIsSubmitting(false);
+          setError("An unexpected error occured");
+        }
       })}
     >
       <TextField.Root>
@@ -50,7 +60,7 @@ const NewIssuePage = () => {
           {errors.description.message}
         </Text>
       )}
-      <Button className="hover:cursor-pointer">Add New Issue</Button>
+        <Button className="hover:cursor-pointer">Submit New Issue{isSubmitting && <Spinner/>}</Button>
     </form>
   );
 };
