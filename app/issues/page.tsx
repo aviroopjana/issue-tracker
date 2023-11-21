@@ -3,7 +3,8 @@ import { Table } from "@radix-ui/themes";
 import Prisma from "@/prisma/client";
 import IssueStatusBadge from "../components/IssueStatusBadge";
 import delay from "delay";
-import IssueAction from "./IssueAction";
+import IssueAction from "./IssueAction";;
+import BackButton from "../components/BackButton";
 
 const IssuePage = async () => {
   const issues = await Prisma.issue.findMany();
@@ -11,6 +12,7 @@ const IssuePage = async () => {
 
   return (
     <div>
+      <BackButton href="/"/>
       <IssueAction />
       <Table.Root variant="surface" className="max-w-4xl">
         <Table.Header>

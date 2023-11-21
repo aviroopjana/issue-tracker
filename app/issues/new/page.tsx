@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Spinner from "@/app/components/Spinner";
 import { useState } from "react";
+import BackButton from "@/app/components/BackButton";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -38,32 +39,34 @@ const NewIssuePage = () => {
   });
 
   return (
-    <form
-      className="max-w-xl space-y-3"
-      onSubmit={onSubmit}
-    >
-      <TextField.Root>
-        <TextField.Input placeholder="Title" {...register("name")} />
-      </TextField.Root>
-      {errors.name && (
-        <Text color="red" as="p">
-          {errors.name.message}
-        </Text>
-      )}
-      <Controller
-        name="description"
-        control={control}
-        render={({ field }) => (
-          <SimpleMDE placeholder="Description" {...field} />
+    <div>
+      <BackButton href="/issues" />
+      <form className="max-w-xl space-y-3" onSubmit={onSubmit}>
+        <TextField.Root>
+          <TextField.Input placeholder="Title" {...register("name")} />
+        </TextField.Root>
+        {errors.name && (
+          <Text color="red" as="p">
+            {errors.name.message}
+          </Text>
         )}
-      />
-      {errors.description && (
-        <Text color="red" as="p">
-          {errors.description.message}
-        </Text>
-      )}
-        <Button className="hover:cursor-pointer">Submit New Issue{isSubmitting && <Spinner/>}</Button>
-    </form>
+        <Controller
+          name="description"
+          control={control}
+          render={({ field }) => (
+            <SimpleMDE placeholder="Description" {...field} />
+          )}
+        />
+        {errors.description && (
+          <Text color="red" as="p">
+            {errors.description.message}
+          </Text>
+        )}
+        <Button className="hover:cursor-pointer">
+          Submit New Issue{isSubmitting && <Spinner />}
+        </Button>
+      </form>
+    </div>
   );
 };
 

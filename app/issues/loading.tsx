@@ -3,12 +3,14 @@ import React from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import IssueAction from "./IssueAction";
+import BackButton from "../components/BackButton";
 
 const issues = [1, 2, 3, 4, 5, 6, 7, 8];
 
 const loading = () => {
   return (
     <div>
+      <BackButton href="/" />
       <IssueAction />
       <Table.Root variant="surface" className="max-w-4xl">
         <Table.Header>
