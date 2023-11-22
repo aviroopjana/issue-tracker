@@ -1,3 +1,4 @@
+import BackButton from "@/app/components/BackButton";
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";
 import prisma from "@/prisma/client";
 import { Card, Flex, Heading } from "@radix-ui/themes";
@@ -23,6 +24,7 @@ const IssueDetailsPage = async ({ params }: Props) => {
 
   return (
     <div>
+    <BackButton href="/issues" />
       <Heading>{issue.name}</Heading>
       <Flex className="space-x-3 mt-2 mb-5">
         <IssueStatusBadge status={issue.status} /> 
