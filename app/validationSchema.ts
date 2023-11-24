@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const createIssueSchema = z.object({
+export const issueSchema = z.object({
   name: z
     .string()
     .min(1, "Title must be at least 1 character.")
