@@ -5,7 +5,7 @@ import "easymde/dist/easymde.min.css";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { createIssueSchema } from "@/app/validationSchema";
+import { issueSchema } from "@/app/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Spinner from "@/app/components/Spinner";
@@ -13,9 +13,9 @@ import { useState } from "react";
 import BackButton from "@/app/components/BackButton";
 import { Issue } from "@prisma/client";
 
-type IssueForm = z.infer<typeof createIssueSchema>;
+type IssueForm = z.infer<typeof issueSchema>;
 
-const IssueFormPage = ({ issue }: {issue?: Issue}) => {
+const IssueFormPage = ({ issue }: { issue?: Issue }) => {
   const router = useRouter();
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -25,13 +25,17 @@ const IssueFormPage = ({ issue }: {issue?: Issue}) => {
     handleSubmit,
     formState: { errors },
   } = useForm<IssueForm>({
-    resolver: zodResolver(createIssueSchema),
+    resolver: zodResolver(issueSchema),
   });
 
   const onSubmit = handleSubmit(async (data) => {
     try {
       setIsSubmitting(true);
-      await axios.post("/api/issues", data);
+      if (issue) {
+        await axios.patch("/api/issues/" + issue.id, data);
+      } else {
+        await axios.post("/api/issues", data);
+      }
       router.push("/issues");
     } catch (error) {
       setIsSubmitting(false);
@@ -44,7 +48,11 @@ const IssueFormPage = ({ issue }: {issue?: Issue}) => {
       <BackButton href="/issues" />
       <form className="max-w-xl space-y-3" onSubmit={onSubmit}>
         <TextField.Root>
-          <TextField.Input defaultValue={issue?.name} placeholder="Title" {...register("name")} />
+          <TextField.Input
+            defaultValue={issue?.name}
+            placeholder="Title"
+            {...register("name")}
+          />
         </TextField.Root>
         {errors.name && (
           <Text color="red" as="p">
@@ -65,7 +73,8 @@ const IssueFormPage = ({ issue }: {issue?: Issue}) => {
           </Text>
         )}
         <Button className="hover:cursor-pointer">
-          Submit New Issue{isSubmitting && <Spinner />}
+          {issue ? "Update Issue" : "Submit New Issue"}{" "}
+          {isSubmitting && <Spinner />}
         </Button>
       </form>
     </div>
