@@ -1,4 +1,5 @@
-import { Button } from "@radix-ui/themes";
+"use client";
+import { AlertDialog, Button, Flex } from "@radix-ui/themes";
 import Link from "next/link";
 import { FaRegEdit } from "react-icons/fa";
 
