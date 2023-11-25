@@ -8,6 +8,7 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import { FaRegEdit } from "react-icons/fa";
 import Link from "next/link";
+import DeleteIssueButton from "./DeleteIssueButton";
 
 interface Props {
   params: { id: string };
@@ -40,10 +41,13 @@ const IssueDetailsPage = async ({ params }: Props) => {
         </Card>
       </Box>
       <Box className="mt-10">
+        <Flex className="space-x-3">
         <Button>
-          <FaRegEdit />
+          <FaRegEdit size={25} />
           <Link href={`/issues/${issue.id}/edit`}>Edit Issue</Link>
         </Button>
+        <DeleteIssueButton issueId={issue.id}/>
+        </Flex>
       </Box>
     </Grid>
   );
