@@ -2,16 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
+/* styles.css or your global styles file */
+ /* body {
+    overflow-y: scroll;
+  } */
+  
+  html {
+    overflow-y: scroll;
   }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-} */

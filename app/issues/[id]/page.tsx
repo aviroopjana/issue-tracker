@@ -1,13 +1,11 @@
 import BackButton from "@/app/components/BackButton";
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";
 import prisma from "@/prisma/client";
-import { Box, Button, Card, Flex, Grid, Heading } from "@radix-ui/themes";
+import { Box, Card, Flex, Grid, Heading } from "@radix-ui/themes";
 import delay from "delay";
 import { notFound } from "next/navigation";
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import { FaRegEdit } from "react-icons/fa";
-import Link from "next/link";
 import DeleteIssueButton from "./DeleteIssueButton";
 import EditIssueButton from "./EditIssueButton";
 
@@ -29,7 +27,7 @@ const IssueDetailsPage = async ({ params }: Props) => {
   }
 
   return (
-    <div className="flex justify-center items-start h-screen">
+    <div className="px-48 pt-20">
       <div className="w-full max-w-4xl">
         <Grid columns={{ initial: "1", md: "2" }} gap={"5"}>
           <Box>

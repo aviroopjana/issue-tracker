@@ -9,7 +9,7 @@ const issues = [1, 2, 3, 4, 5, 6, 7, 8];
 
 const loading = () => {
   return (
-    <div className="flex items-start justify-center h-screen">
+    <div className="flex items-center justify-center h-screen">
       <div className="w-full max-w-4xl">   
       <BackButton href="/" />
       <IssueAction />

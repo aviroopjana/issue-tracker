@@ -6,7 +6,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 const loading = () => {
   return (
-    <div className="flex items-start justify-center h-screen">
+    <div className="px-48 pt-20">
       <div className="w-full max-w-4xl">
         <Box>
           <BackButton href="/issues" />
