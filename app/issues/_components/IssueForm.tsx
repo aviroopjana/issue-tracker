@@ -44,7 +44,8 @@ const IssueFormPage = ({ issue }: { issue?: Issue }) => {
   });
 
   return (
-    <div>
+    <div className="flex items-start justify-center h-screen">
+      <div className="w-full max-w-4xl">
       <BackButton href="/issues" />
       <form className="max-w-xl space-y-3" onSubmit={onSubmit}>
         <TextField.Root>
@@ -77,6 +78,7 @@ const IssueFormPage = ({ issue }: { issue?: Issue }) => {
           {isSubmitting && <Spinner />}
         </Button>
       </form>
+      </div>
     </div>
   );
 };

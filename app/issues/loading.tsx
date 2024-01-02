@@ -9,7 +9,8 @@ const issues = [1, 2, 3, 4, 5, 6, 7, 8];
 
 const loading = () => {
   return (
-    <div>
+    <div className="flex items-start justify-center h-screen">
+      <div className="w-full max-w-4xl">   
       <BackButton href="/" />
       <IssueAction />
       <Table.Root variant="surface" className="max-w-4xl">
@@ -55,6 +56,7 @@ const loading = () => {
           ))}
         </Table.Body>
       </Table.Root>
+      </div>
     </div>
   );
 };

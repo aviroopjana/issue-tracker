@@ -29,25 +29,29 @@ const IssueDetailsPage = async ({ params }: Props) => {
   }
 
   return (
-    <Grid columns={{ initial: "1", md: "2" }} gap={"5"}>
-      <Box>
-        <BackButton href="/issues" />
-        <Heading>{issue.name}</Heading>
-        <Flex className="space-x-3 mt-2 mb-5">
-          <IssueStatusBadge status={issue.status} />
-          <p>{issue.createdAt.toDateString()}</p>
-        </Flex>
-        <Card className="prose max-w-2xl">
-          <ReactMarkdown>{issue.description}</ReactMarkdown>
-        </Card>
-      </Box>
-      <Box className="mt-10">
-        <Flex className="space-x-3">
-        <EditIssueButton issueId={issue.id} />
-        <DeleteIssueButton issueId={issue.id}/>
-        </Flex>
-      </Box>
-    </Grid>
+    <div className="flex justify-center items-start h-screen">
+      <div className="w-full max-w-4xl">
+        <Grid columns={{ initial: "1", md: "2" }} gap={"5"}>
+          <Box>
+            <BackButton href="/issues" />
+            <Heading>{issue.name}</Heading>
+            <Flex className="space-x-3 mt-2 mb-5">
+              <IssueStatusBadge status={issue.status} />
+              <p>{issue.createdAt.toDateString()}</p>
+            </Flex>
+            <Card className="prose max-w-2xl">
+              <ReactMarkdown>{issue.description}</ReactMarkdown>
+            </Card>
+          </Box>
+          <Box className="mt-10">
+            <Flex className="space-x-3">
+              <EditIssueButton issueId={issue.id} />
+              <DeleteIssueButton issueId={issue.id} />
+            </Flex>
+          </Box>
+        </Grid>
+      </div>
+    </div>
   );
 };
 
