@@ -5,5 +5,27 @@ export const issueSchema = z.object({
     .string()
     .min(1, "Title must be at least 1 character.")
     .max(255, "Title must be at most 255 characters."),
-  description: z.string().min(1, "Description must be at least 1 character."),
+  description: z
+    .string()
+    .min(1, "Description must be at least 1 character.")
+    .max(65535),
+});
+
+export const patchIssueSchema = z.object({
+  name: z
+    .string()
+    .min(1, "Title must be at least 1 character.")
+    .max(255, "Title must be at most 255 characters.")
+    .optional(),
+  description: z
+    .string()
+    .min(1, "Description must be at least 1 character.")
+    .max(65535)
+    .optional(),
+  assignIssueToUserId: z
+    .string()
+    .min(1, "AssignIssueToUserId is required")
+    .max(255)
+    .optional()
+    .nullable(),
 });
