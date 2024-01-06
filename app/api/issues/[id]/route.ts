@@ -21,12 +21,12 @@ export async function PATCH(request: NextRequest, { params }: Props) {
     return NextResponse.json(validate.error.errors);
   }
 
-  const { assignIssueToUserId } = body;
+  const { name, description, assignedToUserId } = body;
 
-  if (assignIssueToUserId) {
+  if (assignedToUserId) {
     const user = await prisma.user.findUnique({
       where: {
-        id: assignIssueToUserId,
+        id: assignedToUserId,
       },
     });
 
@@ -50,9 +50,9 @@ export async function PATCH(request: NextRequest, { params }: Props) {
       id: issue.id,
     },
     data: {
-      name: body.name,
-      description: body.description,
-      assignIssueToUserId,
+      name,
+      description,
+      assignedToUserId,
     },
   });
 

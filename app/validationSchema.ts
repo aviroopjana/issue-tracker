@@ -22,9 +22,9 @@ export const patchIssueSchema = z.object({
     .min(1, "Description must be at least 1 character.")
     .max(65535)
     .optional(),
-  assignIssueToUserId: z
+  assignedToUserId: z
     .string()
-    .min(1, "AssignIssueToUserId is required")
+    .min(1, "assignedToUserId is required")
     .max(255)
     .optional()
     .nullable(),
