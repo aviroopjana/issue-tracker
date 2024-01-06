@@ -36,7 +36,7 @@ const IssueFormPage = ({ issue }: { issue?: Issue }) => {
       } else {
         await axios.post("/api/issues", data);
       }
-      router.push("/issues");
+      router.push("/issues/list");
     } catch (error) {
       setIsSubmitting(false);
       setError("An unexpected error occured");
@@ -46,7 +46,7 @@ const IssueFormPage = ({ issue }: { issue?: Issue }) => {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="w-full max-w-4xl">
-      <BackButton href="/issues" />
+      <BackButton href="/issues/list" />
       <form className="max-w-xl space-y-3" onSubmit={onSubmit}>
         <TextField.Root>
           <TextField.Input

@@ -9,7 +9,7 @@ import Link from "../../components/Link";
 
 const IssuePage = async () => {
   const issues = await Prisma.issue.findMany();
-  await delay(2000);
+  // await delay(2000);
 
   return (
     <div className="flex items-center justify-center h-screen">
