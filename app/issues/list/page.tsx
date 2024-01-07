@@ -2,14 +2,27 @@ import React from "react";
 import { Table } from "@radix-ui/themes";
 import Prisma from "@/prisma/client";
 import IssueStatusBadge from "../../components/IssueStatusBadge";
-import delay from "delay";
 import IssueAction from "./IssueAction";
 import BackButton from "../../components/BackButton";
 import Link from "../../components/Link";
+import { Status } from "@prisma/client";
 
-const IssuePage = async () => {
-  const issues = await Prisma.issue.findMany();
-  // await delay(2000);
+interface Props {
+  searchParams: { status: Status };
+}
+
+const IssuePage = async ({ searchParams }: Props) => {
+  const statuses = Object.values(Status);
+
+  const status = statuses.includes(searchParams.status)
+    ? searchParams.status
+    : undefined;
+
+  const issues = await Prisma.issue.findMany({
+    where: {
+      status
+    },
+  });
 
   return (
     <div className="flex items-center justify-center h-screen">
