@@ -1,7 +1,7 @@
 import React from "react";
 import { Table } from "@radix-ui/themes";
 import Prisma from "@/prisma/client";
-import NextLink from 'next/link';
+import NextLink from "next/link";
 import IssueStatusBadge from "../../components/IssueStatusBadge";
 import IssueAction from "./IssueAction";
 import BackButton from "../../components/BackButton";
@@ -10,11 +10,10 @@ import { Issue, Status } from "@prisma/client";
 import { BsArrowUp } from "react-icons/bs";
 
 interface Props {
-  searchParams: { status: Status, orderBy: keyof Issue };
+  searchParams: { status: Status; orderBy: keyof Issue };
 }
 
 const IssuePage = async ({ searchParams }: Props) => {
-
   const columns: {
     label: string;
     value: keyof Issue;
@@ -45,10 +44,17 @@ const IssuePage = async ({ searchParams }: Props) => {
     ? searchParams.status
     : undefined;
 
+  const orderBy = columns
+    .map((column) => column.value)
+    .includes(searchParams.orderBy)
+    ? { [searchParams.orderBy]: "asc" }
+    : undefined;
+
   const issues = await Prisma.issue.findMany({
     where: {
-      status
+      status,
     },
+    orderBy,
   });
 
   return (
@@ -60,14 +66,20 @@ const IssuePage = async ({ searchParams }: Props) => {
         <Table.Root variant="surface" className="max-w-4xl">
           <Table.Header>
             <Table.Row>
-            {columns.map((column) => (
-              <Table.ColumnHeaderCell key={column.value}>
-                <NextLink href={{
-                  query: { ...searchParams, orderBy: column.value }                  
-                }}>{column.label}</NextLink>
-                {column.value === searchParams.orderBy && <BsArrowUp className="inline"/>}
-              </Table.ColumnHeaderCell>
-            ))}
+              {columns.map((column) => (
+                <Table.ColumnHeaderCell key={column.value}>
+                  <NextLink
+                    href={{
+                      query: { ...searchParams, orderBy: column.value },
+                    }}
+                  >
+                    {column.label}
+                  </NextLink>
+                  {column.value === searchParams.orderBy && (
+                    <BsArrowUp className="inline" />
+                  )}
+                </Table.ColumnHeaderCell>
+              ))}
             </Table.Row>
           </Table.Header>
           <Table.Body>
