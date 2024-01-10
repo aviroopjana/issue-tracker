@@ -1,6 +1,7 @@
 import { Button, Flex, Text } from "@radix-ui/themes";
 import React from "react";
-import { MdKeyboardDoubleArrowLeft } from "react-icons/md";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 interface Props {
   itemCount: number;
@@ -14,12 +15,21 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
   if (pageCount < 1) return null;
 
   return (
-    <Flex direction={"row"}>
-      <Text>
+    <Flex direction={"row"} align={"center"} gap={"2"}>
+      <Text size={"2"}>
         Page {currentPage} of {pageCount}
       </Text>
-      <Button>
+      <Button disabled={currentPage === 1} variant="soft">
         <MdKeyboardDoubleArrowLeft/>
+      </Button>
+      <Button disabled={currentPage === 1} variant="soft">
+        <BsChevronLeft/>
+      </Button>
+      <Button disabled={currentPage === pageCount} variant="soft">
+        <BsChevronRight/>
+      </Button>
+      <Button disabled={currentPage === 1} variant="soft">
+        <MdKeyboardDoubleArrowRight/>
       </Button>
     </Flex>
   );
